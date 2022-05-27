@@ -10,9 +10,9 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
-          className="App-lin k"
+          className="App-link"
           href="https://reactjs.org"
-          target="_blanssk"
+          target="_blank"
           rel="noopener noreferrer"
         >
           Learn React
