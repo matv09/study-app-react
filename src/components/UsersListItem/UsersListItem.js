@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const UsersListItem = ({ userData: { name, average, attendance } }) => (
   <li>
-    <div>{average}</div>
+    <div>{average} </div>
     <div>
       <p>{name}</p>
       <p>{attendance}</p>
