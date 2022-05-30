@@ -19,4 +19,14 @@ export const users = [
     attendance: '29%',
     average: '2.4',
   },
+  {
+    name: 'Szymon Knuth',
+    attendance: '63%',
+    average: '5.2',
+  },
+  {
+    name: 'Krystian Foczpaniak',
+    attendance: '83%',
+    average: '2.1',
+  },
 ];
