@@ -38,7 +38,7 @@ const UsersList = () => {
 
   return (
     <Wrapper>
-      <h1>{isLoading ? 'Loading...' : 'Users List'}</h1>
+      <h1>{isLoading ? 'Loading....' : 'Users List'}</h1>
       <StyledList>
         {users.map((userData) => (
           <UsersListItem deleteUser={deleteUser} key={userData.name} userData={userData} />
