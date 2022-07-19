@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   ArticleWrapper, ContentWrapper,
   NewsSectionHeader,
@@ -6,44 +6,64 @@ import {
   Wrapper
 } from 'components/templates/NewsSection/NewsSection.styles';
 import { Button } from '../../atoms/Button/Button';
+import axios from 'axios';
 
-const data = [
-  {
-    title: 'New computers at school1',
-    category: 'Tech news',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nisl magna, lacinia eget condimentum quis, tristique sit amet diam. Aenean porta orci fermentum mauris pharetra iaculis. Nulla facilisi. Nam tincidunt sem sed mauris dictum, sed venenatis nisl aliquam. Duis accumsan semper libero, ac convallis felis accumsan ut. Phasellus et ante a nunc vestibulum interdum.',
-  },
-  {
-    title: 'New computers at schoolson2',
-    category: 'Tech news',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nisl magna, lacinia eget condimentum quis, tristique sit amet diam. Aenean porta orci fermentum mauris pharetra iaculis. Nulla facilisi. Nam tincidunt sem sed mauris dictum, sed venenatis nisl aliquam. Duis accumsan semper libero, ac convallis felis accumsan ut. Phasellus et ante a nunc vestibulum interdum.',
-    image: 'https://unsplash.it/500/400/',
-  },
-  {
-    title: 'New computers at schoolson3',
-    category: 'Tech news',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nisl magna, lacinia eget condimentum quis, tristique sit amet diam. Aenean porta orci fermentum mauris pharetra iaculis. Nulla facilisi. Nam tincidunt sem sed mauris dictum, sed venenatis nisl aliquam. Duis accumsan semper libero, ac convallis felis accumsan ut. Phasellus et ante a nunc vestibulum interdum.',
-  },
+export const query = `
+        {
+          allArticles {
+            id
+            title
+            category
+            content
+            image {
+              url
+            }
+          }
+        }
+      `;
 
-]
 
 const NewsSection = () => {
+
+  const [articles, setArticles] = useState([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    console.log(process.env.REACT_APP_DATOCMS_TOKEN);
+    axios.post('https://graphql.datocms.com/', {
+      query,
+    }, {
+      headers: {
+        authorization: `Bearer ${process.env.REACT_APP_DATOCMS_TOKEN}`,
+      },
+     }
+    )
+      .then(({ data: { data } }) => {
+        setArticles(data.allArticles);
+      })
+      .catch(() => {
+        setError(`Sorry. we couldn't load articles for you Test`);
+      });
+  }, []);
+
   return (
     <Wrapper>
       <NewsSectionHeader>University news feed</NewsSectionHeader>
-      {data.map(({ title, category, content, image = null }) => (
-        <ArticleWrapper key={title}>
+      {articles.length > 0 ? articles.map(({ id, title, category, content, image = null }) => (
+        <ArticleWrapper key={id}>
           <TitleWrapper>
             <h3>{title}</h3>
             <p>{category}</p>
           </TitleWrapper>
           <ContentWrapper>
           <p>{content}</p>
-          {image ? <img src={image} alt="article image" /> : null}
+          {image ? <img src={image.url} alt="article image" /> : null}
           </ContentWrapper>
           <Button isBig>click me</Button>
         </ArticleWrapper>
-      ))}
+      )): (
+        <NewsSectionHeader>{error ? error: 'Loading ...'}</NewsSectionHeader>
+      )}
 
     </Wrapper>
   );
