@@ -11,7 +11,7 @@ const Navigation = () => {
           Buddy
         </h1>
       </Logo>
-      <StyledLink activeClassName="active-link" exact to="/">Dashboard</StyledLink>
+      <StyledLink activeClassName="active-link" exact to="/group">Dashboard</StyledLink>
       <StyledLink activeClassName="active-link" to="/add-user">Add user</StyledLink>
     </Wrapper>
   );
