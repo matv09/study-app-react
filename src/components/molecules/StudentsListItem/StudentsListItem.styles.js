@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const Wrapper = styled.li`
   display: flex;
   align-items: center;
@@ -15,22 +14,21 @@ export const Wrapper = styled.li`
   }
 `;
 
-export const StyledAverage = styled.p`
+export const StyledAverage = styled.div`
   width: 35px;
   height: 35px;
+  border-radius: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 700;
-  padding: 10px;
-  margin-right: 20px;
-  border-radius: 50px;
-  font-size: ${({ theme }) => theme.fontSize.m};
+  font-size: ${({ theme }) => theme.fontSize.s};
   color: ${({ theme }) => theme.colors.white};
-  background-color: ${({value, theme}) => {
+  font-weight: bold;
+  background: ${({ theme, value }) => {
     if (value > 4) return theme.colors.success;
     if (value > 3) return theme.colors.warning;
     if (value > 2) return theme.colors.error;
+    return theme.colors.grey;
   }};
 `;
 
