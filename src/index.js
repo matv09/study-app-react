@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'index.css';
 import Root from 'views/Root';
+import 'assets/styles/fonts.css'
 import { worker } from 'mocks/browser';
 
-worker.start();
+worker.start().then(() => {
 
 ReactDOM.render(
   <React.StrictMode>
@@ -12,3 +13,4 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+});
