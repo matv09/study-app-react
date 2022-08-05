@@ -9,8 +9,6 @@ import useModal from 'components/organisms/Modal/useModal';
 import { StyledAverage } from 'components/molecules/StudentsListItem/StudentsListItem.styles';
 import StudentDetails from 'components/molecules/StudentDetails/StudentDetails';
 import Modal from '../components/organisms/Modal/Modal';
-import axios from 'axios';
-
 
 const Dashboard = () => {
   const [groups, setGroups] = useState([]);
